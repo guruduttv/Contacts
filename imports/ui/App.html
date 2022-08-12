@@ -68,9 +68,9 @@
   </div>
 
  
-  
+  {{#if displayEditContact}}
   {{> EditContactPopUp}}
-  
+  {{/if}}
 </template>
 <template name="EditContactPopUp">
   <div class="EditContact">
@@ -86,7 +86,7 @@
           <input type="email" placeholder="Enter email" name="email"  value="{{editContact.emailid}}" >
 
           <button type="submit" class="editContactSubmit">Submit</button>
-          <button  class="cancelEdit" > Cancel</button>
+          <button type="click" class="cancelEdit" > Cancel</button>
     </form>
   </div>
 </template>
@@ -102,15 +102,15 @@
     
     <form class="task-form">
        <div class="divname"> <label for="Name"><b>Full Name:  </b></label><input type="text" name="fullName"  />
-        <p>{{showErrorMessages 'name'}} </p>
+        <p class="nameError"> {{showErrorMessages 'name'}} </p>
     </div>
     <div class="divemail"> 
-      <label for="Mail"><b>Email Address:  </b></label><input type="email" name="email"    />
-      <p>{{showErrorMessages 'emailid'}}</p>
+      <label for="Mail"><b>Email Address:  </b></label><input type="text" name="email"    />
+      <p class="emailError">{{showErrorMessages 'emailid'}}</p>
     </div>
       <div class="divtel">   <label for="PhoneNumber"><b>Telephone Number: </b></label>
        <input type="tel" name="phoneNumber"    />
-       <p>{{showErrorMessages 'phno'}}</p>
+       <p class="phoneError">{{showErrorMessages 'phno'}}</p>
        </div>
        <div class="flex-parent jc-center">
         <div class="button-container-div"> <button type="submit" class="green margin-right">Submit</button></div>

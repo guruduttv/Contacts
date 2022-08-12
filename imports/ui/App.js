@@ -13,7 +13,7 @@ Template.mainContainer.events({
     Session.set("showAddContactForm",true);  
   },
 
-  'click .cancel'(event,instance) {
+  'click .CloseCreateForm'(event,instance) {
     Session.set("showAddContactForm",false);
   },
 });
@@ -48,13 +48,13 @@ Template.ContactList.events({
 
   'click .editContactForm'(e,instance) {
     
-    // Session.set("showEditContactForm",true);
+    Session.set("showEditContactForm",true);
     Meteor.call('contacts.get',this._id,(err,res)=>{
     var myData = res[0];
     console.log(myData);
     Session.set('mySession', myData);
   })
-  $("#myForm").css("display", "block");
+ 
 
 },
   'click .previous': function (event) {
@@ -77,9 +77,7 @@ Template.ContactList.events({
     Session.set('searchContactName', searchContactName);
   },
 
-  // 'click .cancel'() {
-  //   Session.set("showAddContactForm",false);
-  // },
+
 
   'click .delete'() {
     Meteor.call('contacts.remove', this._id);
@@ -90,9 +88,8 @@ Template.ContactList.events({
 
 
 Template.ContactList.onCreated(function ContactListOnCreated() {
-  var instance = this
-  instance.state = new ReactiveDict(); 
-  // Session.set("showEditContactForm",false);
+  var instance = this;
+  Session.set("showEditContactForm",false);
   Session.set("showAddContactForm",false);
   Session.set('skip', 0)
   instance.autorun(function () {
@@ -155,6 +152,17 @@ Template.ContactList.helpers({
       return arrayOfPageNumber;
     },
 
+    displayEditContact(){
+      let displayEditContactForm=Session.get("showEditContactForm");
+      if (displayEditContactForm == true)
+      {
+        return true;
+      }
+      else{
+        return false;
+      }
+    }
+
 
 });
 
@@ -182,7 +190,7 @@ Template.CreateContactForm.events({
     instance.errormessage.set("phno","");
     instance.errormessage.set("name","");
     instance.errormessage.set("emailid","");
-    // Session.set("showAddContactForm",false);
+    Session.set("showAddContactForm",false);
     
         
     
@@ -193,19 +201,45 @@ Template.CreateContactForm.events({
         const name = target.fullName.value;
         const phno=target.phoneNumber.value;
         const emailid=target.email.value;
-        
+        console.log(typeof(phno));
+        emailValidity = /[0-9a-zA-Z]+@[0-9a-zA-Z]+\.[a-zA-Z]+/.test(emailid);
+        phoneValidity = /[6-9][0-9]{9}/.test(phno);
         if(name=="" && phno=="" && emailid=="")
         {
          instance.errormessage.set("name","Please enter the name field");
          instance.errormessage.set("phno","Please enter the phone field");
          instance.errormessage.set("emailid","Please enter the email field");
         }
-        
-        else if(phno.length!=10){
-          instance.errormessage.set("phno","Phone number should be of 10 digits");
+        else if(name=="" )
+        {
+         instance.errormessage.set("name","Please enter the name field");
+         instance.errormessage.set("phno","");
+         instance.errormessage.set("emailid","");
+        }
+        else if(phno=="" )
+        {
+         instance.errormessage.set("name","");
+         instance.errormessage.set("phno","Please enter the phone field");
+         instance.errormessage.set("emailid","");
+        }
+        else if(emailid=="" )
+        {
+         instance.errormessage.set("name","");
+         instance.errormessage.set("phno","");
+         instance.errormessage.set("emailid","Please enter the email field");
+        }
+        else if(phoneValidity==false ){
+          instance.errormessage.set("phno","Invalid Phno");
           instance.errormessage.set("name","");
           instance.errormessage.set("emailid","");
         }
+        else if(emailValidity==false ){
+          instance.errormessage.set("phno","");
+          instance.errormessage.set("name","");
+          instance.errormessage.set("emailid","Invalid Email");
+        }
+        
+        
         else{
        
         Meteor.call('contacts.insert', name,phno,emailid);        
@@ -232,10 +266,15 @@ Template.EditContactPopUp.events({
     let id=Session.get('mySession')._id;
        
     Meteor.call('contacts.update', name,phno,emailid,id);        
-    target.name.value = '';
-    target.phoneNumber.value = '';
-    target.email.value = '';
+  
     
+    Session.set("showEditContactForm",false);
+  
+  },
+
+  "click .cancelEdit"(event,instance) {
+
+    Session.set("showEditContactForm",false);
   },
 
 

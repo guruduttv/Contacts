@@ -102,8 +102,23 @@ font-size: 20px;
   max-width: 300px;
   padding: 10px;
   background-color: white;
+  display: block;
 }
 
+.nameError{
+  padding-left: 10%;
+  color: red;
+}
+
+.emailError{
+  padding-left: 13%;
+  color: red;
+  
+}
+.phoneError{
+  padding-left: 15%;
+  color: red; 
+}
 
 
 
@@ -262,7 +277,7 @@ button.CloseCreateForm {
   padding-left: 1%;
 }
 
-.grid-item .edit{
+.grid-item .editContactForm{
   color:purple;
   border:white;
   background: white;
