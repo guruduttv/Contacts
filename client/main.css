@@ -2,7 +2,157 @@ body {
   padding: 10px;
   font-family: sans-serif;
 }
+h1 {text-align: center;}
 
+.fluid-container
+{
+  display: flex;
+  justify-content: center;
+
+}
+
+.divname{
+  padding-left:25%;
+}
+
+.divemail{
+  padding-left:22%;
+
+}
+
+.divtel{
+  padding-left:20%;
+}
+
+.addbutton{
+  text-align: center;
+ 
+color:purple;
+
+}
+  
+ 
+#add-button {
+  background-color:rgb(252, 250, 250);
+    padding:10px 40px;
+    border: 1px solid purple;
+    border-radius: 8px;
+  
+}
+
+input[type=text]{
+  width: 60%;
+  padding: 15px 40px;
+  
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  padding-left:20px;
+}
+
+input[type=email]{
+  width: 58%;
+  padding: 15px 20px;
+ 
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  
+  
+}
+
+input[type=tel]{
+  width:56%;
+  padding: 15px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.ContactPopup{
+  max-width: 500px;
+  margin: auto;
+  display: none;
+  position: fixed;
+  align-content: center;
+  
+  border: 3px solid #f1f1f1;
+  
+}
+
+.task-form
+{
+  
+padding-left: 10%;
+  justify-content: center;
+  border-radius: 5px;
+ 
+font-size: 20px;
+}
+
+
+
+.EditForm {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+
+
+
+
+
+.EditForm .editContactSubmit {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+
+.EditForm .cancelEdit {
+  background-color: red;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+
+.EditForm .editContactSubmit:hover, .open-button:hover {
+  opacity: 1;
+}
+
+
+
+label {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  text-align: right;
+
+  
+}
+
+input {
+  height: 20px;
+  flex: 0 0 200px;
+  margin-left: 15px;
+  
+}
 .card {
   padding: 1rem;
   border: 1px solid black;
@@ -25,9 +175,13 @@ body {
   padding: 0.5rem;
   flex-grow: 1;
   color: #fff;
-  border-style: none;
+ 
   width:50%;
  
+}
+#left{
+  border-style:solid;
+  border:10px;
 }
   
 #right{
@@ -37,7 +191,7 @@ body {
 .grid-container {
   display: grid;
   grid-template-columns: auto auto auto;
-  /* background-color: #2196F3; */
+  
   padding: 10px;
   border-style: none;
 }
@@ -59,3 +213,86 @@ img {
 }
 
 
+.open-button {
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 280px;
+}
+
+
+
+
+.flex-parent {
+  display: flex;
+}
+
+.jc-center {
+  justify-content: center;
+  padding-left: 10%;
+}
+
+button.margin-right {
+  background-color:rgb(252, 250, 250);
+  padding:5px 120px;
+  border-radius: 8px;
+  border: 1px solid purple;
+  color:purple;
+}
+
+button.CloseCreateForm {
+  background-color:rgb(252, 250, 250);
+  padding:5px 120px;
+  border-radius: 8px;
+  border: 1px solid purple;
+  color:purple;
+}
+
+.button-container-div {
+  padding:1px 10px;
+
+}
+.Cancelbutton{
+  padding-left: 1%;
+}
+
+.grid-item .edit{
+  color:purple;
+  border:white;
+  background: white;
+  
+}
+
+
+.grid-item .delete{
+  color:purple;
+  font-size:22px;
+  border:white;
+  background: white;
+}
+
+img {
+  border: 10px solid rgb(221, 215, 215);
+  border-radius:8px;
+}
+.image{
+  border:1px solid rgb(184, 181, 181);
+  height:172px;
+  border-radius:8px;
+}
+.page{
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  gap:10px;
+}
+.SearchContacts{
+
+  float: right;
+}
