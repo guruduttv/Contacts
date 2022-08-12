@@ -8,9 +8,5 @@ import '../imports/ui/tasksMethod';
  
 Meteor.startup(() => {
 
-    Meteor.publish('tasks', function (li, ski) {
-        return ContactsCollection.find({});
-    
-      })
   
 });
