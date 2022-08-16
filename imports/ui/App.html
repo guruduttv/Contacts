@@ -23,18 +23,20 @@
 </template>
 
 <template name="ContactList">
+  <div class="ContactListDisplay">
   <h1 class="Title">List of Contacts</h1>           
   <div class="addbutton">
     <button id="add-button"> Add Contact </button>
   </div>  
   <div class="SearchContactList">
   <form class="SearchContacts">
-    <input type="text" placeholder="Search Contacts" name="SearchBox" class="searchText">
-    <button  class="SearchBtn"><i class="fa fa-search"></i></button>
+    <input type="text" placeholder="Search Contact" name="SearchBox" class="searchText">
+    <!-- <button  class="SearchBtn"><i class="fa fa-search"></i></button> -->
   </form>
   </div>
-
+  {{#if contacts}}
   <div class="grid-container">
+
     {{#each contacts}}
     <div class="grid-item">
       <div id="content">
@@ -56,21 +58,31 @@
     </div>
    
     {{/each}}
-
-  
   </div>
   <div class="page ">
+    {{#if displayPrevButton 'skip'}}
     <button class="previous" style="background-color:lightslategrey; color:white">previous</button>
+    {{/if}}
       {{#each pagenumber}}
       <button class="numbers" style="background-color:lightslategrey; color:white">{{value}}</button>
       {{/each}}
+      {{#if displayNextButton 'skip'}}
     <button class="next" style="background-color: lightslategrey;color:white">next</button>
+    {{/if}}
   </div>
+
+  {{else}}
+  <div class="noContact">
+  <p class="noContactFound">No Contacts Found</p>
+  </div>
+  {{/if}}  
+  
 
  
   {{#if displayEditContact}}
   {{> EditContactPopUp}}
   {{/if}}
+  </div>
 </template>
 <template name="EditContactPopUp">
   <div class="EditContact">
@@ -84,9 +96,10 @@
           <br>
           <label for="email"><b>Email Id</b></label>
           <input type="email" placeholder="Enter email" name="email"  value="{{editContact.emailid}}" >
-
-          <button type="submit" class="editContactSubmit">Submit</button>
-          <button type="click" class="cancelEdit" > Cancel</button>
+          <div class="EditFormOptions">
+          <div class="submitEditContact"><button type="submit" class="editContactSubmit">Submit</button></div>
+          <div class="cancelEditContact"><button type="click" class="cancelEdit" > Cancel</button></div>
+         </div>
     </form>
   </div>
 </template>
@@ -120,4 +133,3 @@
     
     </div>
 </template>
-<!-- pattern="^[+]?[1-9]?[1-9]?[0-9]{10}$" -->

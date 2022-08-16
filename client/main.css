@@ -310,4 +310,30 @@ img {
 .SearchContacts{
 
   float: right;
+  padding-right: 20%;
+}
+.SearchContacts .searchContact{
+  width:100px;
+}
+
+.EditFormOptions {
+  justify-content: center;
+  padding-left: 10%;
+  display: flex;
+}
+
+
+.ContactListDisplay{
+  text-align: center;
+  
+}
+.noContact{
+  
+
+}
+ .noContact .noContactFound{
+  justify-content: center;
+ padding-left:35%;
+ font-size:40px;
+ 
 }

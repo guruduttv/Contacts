@@ -7,6 +7,7 @@ import './App.html';
 
 import { Match } from 'meteor/check'
 
+const isLoadingString = "isLoading";
 
 Template.mainContainer.events({
   "click #add-button"(event, instance) {
@@ -30,6 +31,11 @@ Template.mainContainer.helpers({
     return true;
    }
   },
+    isLoading() {
+    const instance = Template.instance();
+    return instance.state.get(isLoadingString);
+  }
+
   
 
 });
@@ -37,6 +43,10 @@ Template.mainContainer.helpers({
 Template.mainContainer.onCreated(function mainContainerOnCreated() {
   var instance = this
   this.state = new ReactiveDict();
+  const handler = Meteor.subscribe('contacts');
+  Tracker.autorun(() => {
+    this.state.set(isLoadingString, !handler.ready());
+  });
   Session.set("showAddContactForm",false);
   Session.set("searchContactName","");
   
@@ -67,6 +77,7 @@ Template.ContactList.events({
   },
   'click .numbers': function (event) {
     Session.set('skip', (((this.value) - 1) * Session.get("limit")));
+    console.log(Session.get('skip'),'skip');
   },
 
 
@@ -81,6 +92,7 @@ Template.ContactList.events({
 
   'click .delete'() {
     Meteor.call('contacts.remove', this._id);
+    Session.set('noOfContacts',Session.get('noOfContacts')-1);
   },
 
   
@@ -95,9 +107,11 @@ Template.ContactList.onCreated(function ContactListOnCreated() {
   instance.autorun(function () {
   let limit = 6;
   Session.set('limit', limit);
-  let totalPages = ContactsCollection.find().count();
-  pageNumbers = Math.ceil(totalPages / limit);
+  let totalContacts = ContactsCollection.find().count();
+  
+  pageNumbers = Math.ceil(totalContacts / limit);
   Session.set('pageNumber', pageNumbers);
+  Session.set('noOfContacts',totalContacts);
 })
 });
 
@@ -106,6 +120,7 @@ Template.ContactList.helpers({
     { 
     sortedContacts=ContactsCollection.find({}, { sort: { createdAt: -1 } }).fetch();
     const start=Session.get('skip');
+    console.log(start,"start");
     const end= start+ Session.get('limit');
     contactsPerPage=[];
    
@@ -161,6 +176,28 @@ Template.ContactList.helpers({
       else{
         return false;
       }
+    },
+
+    displayPrevButton(tagName){
+      let skip=Session.get(tagName);
+      return skip;
+    },
+
+    displayNextButton(tagName){
+      let skip=Session.get(tagName);
+      if(skip< (Session.get('noOfContacts')-1) && skip!=0)
+      {
+           return true;
+      }
+      else if (skip==0 && Session.get('noOfContacts')>Session.get('limit') )
+      {
+        return true;
+      }
+      else{
+        return false;
+      }
+      
+      
     }
 
 
